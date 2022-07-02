@@ -1,6 +1,10 @@
 .editor {
-  border: none;
+  border: black;
   min-height: 300px;
   padding: 10px;
   resize: none;
+
+  width: 450px;
+  height: 410px;
+  background-color: rgb(158, 158, 158);
 }

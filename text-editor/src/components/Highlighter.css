@@ -1,3 +1,6 @@
 .highlighter {
-  min-height: 300px;
+
+  width: 450px;
+  height: 410px;
+  background-color: rgb(43, 43, 43);
 }

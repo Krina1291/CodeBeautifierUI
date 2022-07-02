@@ -1,4 +1,5 @@
 import "./Editor.css";
+import React  from 'react';
 
 export const Editor = ({ placeHolder, onChange, onKeyDown }) => {
   return (
