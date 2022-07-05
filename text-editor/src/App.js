@@ -90,16 +90,16 @@ export default function App() {
                 <h2> Conventions Used:</h2>
                 <List align="justify">
                   <br></br>
-                  <ul>Label 1:</ul>
-                  <ul>Label 2:</ul>
-                  <ul>Label 3:</ul>
-                  <ul>Label 4:</ul>
-                  <ul>Label 5:</ul>
-                  <ul>Label 6:</ul>
-                  <ul>Label 7:</ul>
-                  <ul>Label 8:</ul>
-                  <ul>Label 9:</ul>
-                  <ul>Label 0:</ul>
+                  <ul>Label 1:Indentation using 2 spaces</ul>
+                  <ul>Label 2:Always use single quotes for strings</ul>
+                  <ul>Label 3:Add a space after keywords</ul>
+                  <ul>Label 4:Always use === instead of ==</ul>
+                  <ul>Label 5:Remove multiple blank lines</ul>
+                  <ul>Label 6:Remove unnecessary spcaes</ul>
+                  <ul>Label 7:Shifts dot operator from last token of previous line to first token of next line</ul>
+                  <ul>Label 8:Remove parentheses and make single line If statement in one line</ul>
+                  <ul>Label 9:Padding around operators</ul>
+                  <ul>Label 10:Add Commas at the end of the line</ul>
                   <br></br>
                 </List>
               </Grid>
