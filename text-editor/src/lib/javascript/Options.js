@@ -5,7 +5,39 @@ const Options = [
   },
   {
     name: "quotes",
-    desc: "Use only single quotes for strings",
+    desc: "Always use single quotes for strings",
+  },
+  {
+    name: "spaceKeywords",
+    desc: "Add a space after keywords",
+  },
+  {
+    name: "equals",
+    desc: "Always use === instead of ==",
+  },
+  {
+    name: "blankLine",
+    desc: "Remove multiple blank lines",
+  },
+  {
+    name: "spaces",
+    desc: "Remove unnecessary spcaes",
+  },
+  {
+    name: "dot",
+    desc: "Dot location",
+  },
+  {
+    name: "multiIf",
+    desc: "Multi-line If statements",
+  },
+  {
+    name: "paddingOperators",
+    desc: "Padding around operators",
+  },
+  {
+    name: "comma",
+    desc: "Commas at the end of the line",
   },
 ];
 
