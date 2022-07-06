@@ -52,4 +52,5 @@ Rule 8: Remove parentheses and make single line IF statement  in one line
 Rule 9: Add padding around operators
 Rule 10: Add space inside single line braces
 
+
 	
