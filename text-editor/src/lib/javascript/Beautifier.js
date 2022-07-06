@@ -19,11 +19,11 @@ class Stack {
     if (this.item.length === 0) return true;
     else return false;
   };
-
   peek = () => {
     if (!this.isEmpty()) {
-      return this.item.peek();
-    }
+      let n = this.item.length
+      return this.item[n - 1]
+      }
   };
 }
 
@@ -39,9 +39,6 @@ const Tokenize = (InputString) => {
   lexer.rule(/"((?:\\"|[^\r\n])*)"/, (ctx, match) => {
     ctx.accept("string", match[1].replace(/\\"/g, '"'));
   });
-  // lexer.rule(/\/\/[^\r\n]*\r?\n/, (ctx, match) => {
-  //   ctx.ignore();
-  // });
   lexer.rule(/[ \t\r\n]+/, (ctx, match) => {
     ctx.ignore();
   });
@@ -57,45 +54,6 @@ const Tokenize = (InputString) => {
     ctx.accept("comment");
   });
 
-  // lexer.rule(/[a-zA-Z][a-zA-Z0-9_]*/, (ctx, match) => {
-  //   ctx.accept("id");
-  // });
-
-  /*lexer.rule(/(\+)|(-)|(\*)|(\/)|(\.)|(,)|(\^)|(\?)|({)|(})/, (ctx, match) => {
-        ctx.accept("char");
-      });*/
-
-  // lexer.rule(/\/\.*[\n]*\*\//, (ctx, match) => {
-  //   ctx.accept("comment");
-  // });
-
-  // lexer.rule(/\/\/[^\r\n]*\r?\n/, (ctx, match) => {
-  //   ctx.accept("comment");
-  // });
-
-  // lexer.rule(/"==="|"=="|"!=="|">="|"<="|"!="|"<"|">"/, (ctx, match) => {
-  //   ctx.accept("comparators");
-  // });
-
-  // lexer.rule(/"&&"|"\|\|"/, (ctx, match) => {
-  //   ctx.accept("Joiners");
-  // });
-
-  // lexer.rule(/[+-]?[0-9]+/, (ctx, match) => {
-  //   ctx.accept("number", parseInt(match[0]));
-  // });
-
-  // lexer.rule(/"((?:\\"|[^\r\n])*)"/, (ctx, match) => {
-  //   ctx.accept("string", match[1].replace(/\\"/g, '"'));
-  // });
-
-  // lexer.rule(/'((?:\\"|[^\r\n])*)'/, (ctx, match) => {
-  //   ctx.accept("string", match[1].replace(/\\"/g, '"'));
-  // });
-
-  // lexer.rule(/=>/, (ctx, match) => {
-  //   ctx.accept("arrow");
-  // });
 
   lexer.input(InputString);
   lexer.debug(true);
@@ -188,68 +146,17 @@ let equals = (TokensArray) => {
 };
 
 let indentation = (TokensArray) => {
-  let BraceStack = new Stack();
-
-  for (let i = 0; i < TokensArray.length - 1; i++) {
-    if (TokensArray[i].type === "string") {
-      if (TokensArray[i + 1].type === "id") {
-        TokensArray[i + 1].line = TokensArray[i].line + 1;
-        if (BraceStack.isEmpty() === false) {
-          TokensArray[i + 1].column = BraceStack.peek() + 2;
+    let BraceStack = new Stack();
+    BraceStack.push(0);
+    for (let i = 0; i < TokensArray.length - 1; i++) {
+        TokensArray[i].column += BraceStack.peek() + 2;
+        if (TokensArray[i].text === '{') {
+            BraceStack.push(TokensArray[i].column);
         }
-      } else {
-        TokensArray[i + 1].line = TokensArray[i].line;
-        TokensArray[i + 1].column =
-          TokensArray[i].column + TokensArray[i].length + 1;
-      }
-    }
-
-    //When characters are encountered
-    else if (TokensArray[i].type === "char") {
-      //Open Braces are mention due to their importance in innedations
-      if (TokensArray[i].text === "{") {
-        let j = i - 1;
-        //Iterates backwards to find the closes id
-        while (j > 0) {
-          if (TokensArray[j].type === "id") {
-            BraceStack.push(TokensArray[j].column);
-            TokensArray[i + 1].column = TokensArray[j].column + 2;
-            TokensArray[i + 1].line = TokensArray[j].line + 1;
-            break;
-          }
-          j = j - 1;
+        if (TokensArray[i].text === '}') {
+            BraceStack.pop();
         }
-      }
-
-      //Closing braces innedations
-      else if (TokensArray[i].text === "}" && i > 0) {
-        TokensArray[i].line = TokensArray[i - 1].line + 1;
-        TokensArray[i].column = BraceStack.pop();
-        TokensArray[i + 1].line = TokensArray[i].line + 1;
-      }
-
-      //Remaining characters
-      else {
-        TokensArray[i].line = TokensArray[i - 1].line;
-        TokensArray[i].column =
-          TokensArray[i - 1].column + TokensArray[i - 1].text.length + 1;
-      }
     }
-
-    //When we encounter a number
-    else if (TokensArray[i].type === "number") {
-      TokensArray[i + 1].column =
-        TokensArray[i].column + TokensArray[i].text.length + 1;
-      TokensArray[i + 1].line = TokensArray[i].line;
-    }
-
-    //Arrow symbol spacing
-    else if (TokensArray[i].type === "arrow") {
-      TokensArray[i + 1].column =
-        TokensArray[i].column + TokensArray[i].text + 1;
-    }
-  }
-
   return TokensArray;
 };
 
@@ -290,6 +197,7 @@ let paddingOperators = (TokensArray) => {
       TokensArray[i].text === "*" ||
       TokensArray[i].text === "/" ||
       TokensArray[i].text === "?" ||
+      TokensArray[i].text === "^" ||
       TokensArray[i].text === ":"
     ) {
       //don't do anything if padding already there before operator:
@@ -299,9 +207,9 @@ let paddingOperators = (TokensArray) => {
       ) {
         var j = i;
         var currline = TokensArray[i].line;
-        while (TokensArray[j].line === currline) {
-          TokensArray[j].column++;
-          j++;
+          while (TokensArray[j].line === currline) {
+              TokensArray[j].column = TokensArray[j].column + 1;
+              j = j + 1;
         }
       }
       //don't do anything if padding is already there after operator
@@ -314,9 +222,8 @@ let paddingOperators = (TokensArray) => {
         }
       }
     }
-
-    return TokensArray;
   }
+  return TokensArray;
 };
 //this function will remove parentheses and make if statement single line if it only contains one line inside it
 let multilineIf = (TokensArray) => {
@@ -379,11 +286,11 @@ let dotLocation = (TokensArray) => {
       TokensArray[i].text === "." &&
       TokensArray[i].line < TokensArray[i + 1].line
     ) {
-      TokensArray[i].line = TokensArray[i].line + 1;
+      TokensArray[i].line = TokensArray[i+1].line;
       TokensArray[i].column = 1;
       var j = i + 1;
       while (TokensArray[j].line === TokensArray[i].line) {
-        TokensArray[j].column = TokensArray[j].column + 2;
+        TokensArray[j].column = TokensArray[j].column + 1;
         j = j + 1;
       }
     }
@@ -409,10 +316,6 @@ const Beautifier = (input, options) => {
   var res = "";
   TokensArray = Tokenize(input);
 
-  //if (options.equals) {
-  //    console.log(options.equals);
-  //    TokensArray = extraEquals(TokensArray);
-  //}
 
   try {
     if (options.quotes) {
@@ -445,22 +348,16 @@ const Beautifier = (input, options) => {
   } catch (error) {
     console.log(error);
   }
-
-  //if (options.indentation) {
-  //    TokensArray = indentation(TokensArray)
-  //}
-
   try {
-    if (options.multiIf) {
-      TokensArray = multilineIf(TokensArray);
+    if (options.indentation) {
+        TokensArray = indentation(TokensArray)
     }
   } catch (error) {
     console.log(error);
   }
-
   try {
-    if (options.dot) {
-      TokensArray = dotLocation(TokensArray);
+    if (options.multiIf) {
+      TokensArray = multilineIf(TokensArray);
     }
   } catch (error) {
     console.log(error);
@@ -481,7 +378,13 @@ const Beautifier = (input, options) => {
   } catch (error) {
     console.log(error);
   }
-
+  try {
+    if (options.dot) {
+        TokensArray = dotLocation(TokensArray);
+    }
+  } catch (error) {
+    console.log(error);
+  }
   try {
     if (options.spaces) {
       TokensArray = removeUnnecessarySpaces(TokensArray);
