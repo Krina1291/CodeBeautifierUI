@@ -25,19 +25,19 @@ const Options = [
   },
   {
     name: "dot",
-    desc: "Dot location",
+    desc: "Shift dot operator to next line",
   },
   {
     name: "multiIf",
-    desc: "Multi-line If statements",
+    desc: "Multi-line If statements in one line",
   },
   {
     name: "paddingOperators",
     desc: "Padding around operators",
   },
   {
-    name: "comma",
-    desc: "Commas at the end of the line",
+    name: "sinleLineBraces",
+    desc: "Space inside single line braces",
   },
 ];
 
