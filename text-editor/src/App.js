@@ -86,22 +86,46 @@ export default function App() {
                 </List>
               </Grid>
 
-              <Grid item xs={5} marginTop="20px" marginLeft={5}>
+              <Grid item xs={8} marginTop="20px" marginLeft={5}>
                 <h2> Conventions Used:</h2>
-                <List align="justify">
+                <div className="Conventions">
                   <br></br>
-                  <ul>Label 1:Indentation using 2 spaces</ul>
-                  <ul>Label 2:Always use single quotes for strings</ul>
-                  <ul>Label 3:Add a space after keywords</ul>
-                  <ul>Label 4:Always use === instead of ==</ul>
-                  <ul>Label 5:Remove multiple blank lines</ul>
-                  <ul>Label 6:Remove unnecessary spcaes</ul>
-                  <ul>Label 7:Shifts dot operator from last token of previous line to first token of next line</ul>
-                  <ul>Label 8:Remove parentheses and make single line If statement in one line</ul>
-                  <ul>Label 9:Padding around operators</ul>
-                  <ul>Label 10:Add Commas at the end of the line</ul>
+                  <p>
+                    <strong>Label 1: </strong>Indentation using 2 spaces
+                  </p>
+                  <p>
+                    <strong>Label 2: </strong>Always use single quotes for
+                    strings
+                  </p>
+                  <p>
+                    <strong>Label 3: </strong>Add a space after keywords
+                  </p>
+                  <p>
+                    <strong>Label 4: </strong>Always use === instead of ==
+                  </p>
+                  <p>
+                    <strong>Label 5: </strong>Remove multiple blank lines
+                  </p>
+                  <p>
+                    <strong>Label 6: </strong>Remove unnecessary spcaes
+                  </p>
+                  <p>
+                    <strong>Label 7: </strong>Shifts dot operator from last
+                    token of previous line to first token of next line
+                  </p>
+                  <p>
+                    <strong>Label 8: </strong>Remove parentheses and make single
+                    line If statement in one line
+                  </p>
+                  <p>
+                    <strong>Label 9: </strong>Add Padding around operators
+                  </p>
+                  <p>
+                    <strong>Label 10: </strong>Add Space inside single line
+                    braces
+                  </p>
                   <br></br>
-                </List>
+                </div>
               </Grid>
             </Grid>
           </div>
@@ -131,9 +155,9 @@ export default function App() {
             <button type="button" class="Beautify" onClick={handleSubmit}>
               Beautify Code
             </button>
-            <button type="button" class="Reset" onClick={resetOptions}>
+            {/* <button type="button" class="Reset" onClick={resetOptions}>
               Reset Options
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

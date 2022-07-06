@@ -42,8 +42,9 @@
 }
 
 .sidebar-options {
-  max-height: calc(100vh - 150px);
+  max-height: calc(100vh - 140px);
   padding: 20px;
+  overflow-y: auto;
 }
 
 .sidebar-options > h3 {
@@ -57,22 +58,28 @@
 }
 
 .sidebar-buttons {
-  height: 80px;
+  height: 70px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  background-color: var(--purple);
 }
 
 .Beautify {
   margin: 0;
   background-color: var(--purple);
-  color: white;
-  border: none;
+  border: 2px solid #e6e6fa;
+  color: #e6e6fa;
   padding: 8px 20px;
   border-radius: 8px;
   font-family: "Poppins";
   cursor: pointer;
+}
+
+.Beautify:hover {
+  background-color: #a744b8;
+  transition: linear 0.1s;
 }
 
 .Reset {
@@ -113,11 +120,12 @@
   padding: 0 20px;
 }
 
-.exampleInput {
-  color: rgb(181, 0, 30);
+.Conventions {
+  padding: 0 20px;
+  margin: 0;
 }
 
-.exampleOutput {
-  width: 550px;
-  background-color: rgb(255, 255, 255);
+.Conventions > p {
+  margin: 0;
+  padding: 0 0 10px;
 }
