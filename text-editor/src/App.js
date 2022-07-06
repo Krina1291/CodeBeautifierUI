@@ -91,38 +91,38 @@ export default function App() {
                 <div className="Conventions">
                   <br></br>
                   <p>
-                    <strong>Label 1: </strong>Indentation using 2 spaces
+                                      <strong>Label 1: </strong>Always use single quotes for
                   </p>
                   <p>
-                    <strong>Label 2: </strong>Always use single quotes for
+                                      <strong>Label 2: </strong>Add a space after keywords 
                     strings
                   </p>
                   <p>
-                    <strong>Label 3: </strong>Add a space after keywords
+                                      <strong>Label 3: </strong>Always use === instead of == 
                   </p>
                   <p>
-                    <strong>Label 4: </strong>Always use === instead of ==
+                                      <strong>Label 4: </strong>Remove multiple blank lines 
                   </p>
                   <p>
-                    <strong>Label 5: </strong>Remove multiple blank lines
+                                      <strong>Label 5: </strong>Remove unnecessary spaces
                   </p>
                   <p>
-                    <strong>Label 6: </strong>Remove unnecessary spaces
-                  </p>
-                  <p>
-                    <strong>Label 7: </strong>Shifts dot operator from last
+                                      <strong>Label 6: </strong>Shifts dot operator from last
                     token of previous line to first token of next line
                   </p>
                   <p>
-                    <strong>Label 8: </strong>Remove parentheses and make single
+                                      <strong>Label 7: </strong>Remove parentheses and make single
                     line If statement in one line
                   </p>
                   <p>
-                    <strong>Label 9: </strong>Add Padding around operators
+                                      <strong>Label 8: </strong>Add Padding around operators
                   </p>
                   <p>
-                    <strong>Label 10: </strong>Add Space inside single line
+                                      <strong>Label 9: </strong>Add Space inside single line
                     braces
+                  </p>
+                  <p>
+                                      <strong>Label 10: </strong>Indentation using 2 spaces
                   </p>
                   <br></br>
                 </div>

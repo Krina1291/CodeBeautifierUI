@@ -189,40 +189,67 @@ let spaceKeywords = (TokensArray) => {
 };
 
 let paddingOperators = (TokensArray) => {
-  for (let i = 1; i < TokensArray.length - 1; i++) {
-    if (
-      TokensArray[i].text === "+" ||
-      TokensArray[i].text === "-" ||
-      TokensArray[i].text === "*" ||
-      TokensArray[i].text === "/" ||
-      TokensArray[i].text === "?" ||
-      TokensArray[i].text === "^" ||
-      TokensArray[i].text === ":"
-    ) {
-      //don't do anything if padding already there before operator:
-      if (
-        TokensArray[i].column ===
-        TokensArray[i - 1].column + TokensArray[i - 1].text.length
-      ) {
-        var j = i;
-        var currline = TokensArray[i].line;
-        while (TokensArray[j].line === currline) {
-          TokensArray[j].column = TokensArray[j].column + 1;
-          j = j + 1;
+    for (let i = 1; i < TokensArray.length - 1; i++) {
+        if (
+            TokensArray[i].text === "+" ||
+            TokensArray[i].text === "-" ||
+            TokensArray[i].text === "*" ||
+            TokensArray[i].text === "/" ||
+            TokensArray[i].text === "?" ||
+            TokensArray[i].text === "^" ||
+            TokensArray[i].text === ":"
+        ) {
+            //don't do anything if padding already there before operator:
+            if (
+                TokensArray[i].column ===
+                TokensArray[i - 1].column + TokensArray[i - 1].text.length
+            ) {
+                var j = i;
+                var currline = TokensArray[i].line;
+                while (TokensArray[j].line === currline) {
+                    TokensArray[j].column = TokensArray[j].column + 1;
+                    j = j + 1;
+                }
+            }
+            //don't do anything if padding is already there after operator
+            if (TokensArray[i + 1].column === TokensArray[i].column + 1) {
+                let j = i + 1;
+                let currline = TokensArray[i].line;
+                while (TokensArray[j].line === currline) {
+                    TokensArray[j].column++;
+                    j++;
+                }
+            }
         }
-      }
-      //don't do anything if padding is already there after operator
-      if (TokensArray[i + 1].column === TokensArray[i].column + 1) {
-        let j = i + 1;
-        let currline = TokensArray[i].line;
-        while (TokensArray[j].line === currline) {
-          TokensArray[j].column++;
-          j++;
+        if (TokensArray[i].text + TokensArray[i + 1].text === "<=" ||
+            TokensArray[i].text + TokensArray[i + 1].text === ">=" ||
+            TokensArray[i].text + TokensArray[i + 1].text === "!=" ||
+            TokensArray[i].text + TokensArray[i + 1].text === "=="
+          ) {
+            //don't do anything if padding already there before operator:
+            if (
+                TokensArray[i].column ===
+                TokensArray[i - 1].column + TokensArray[i - 1].text.length
+            ) {
+                var j = i;
+                var currline = TokensArray[i].line;
+                while (TokensArray[j].line === currline) {
+                    TokensArray[j].column = TokensArray[j].column + 1;
+                    j = j + 1;
+                }
+            }
+            //don't do anything if padding is already there after operator
+            if (TokensArray[i + 2].column === TokensArray[i + 1].column + 1) {
+                let j = i + 2;
+                let currline = TokensArray[i].line;
+                while (TokensArray[j].line === currline) {
+                    TokensArray[j].column++;
+                    j++;
+                }
+            }
         }
-      }
     }
-  }
-  return TokensArray;
+    return TokensArray;
 };
 //this function will remove parentheses and make if statement single line if it only contains one line inside it
 let multilineIf = (TokensArray) => {
