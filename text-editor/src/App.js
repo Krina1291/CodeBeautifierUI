@@ -51,7 +51,7 @@ export default function App() {
         <div className="container">
           <div className="ControlsBox">
             <div className="control">
-              <h4>Javascipt Code</h4>
+              <h4>Javascript Code</h4>
             </div>
             <div className="control">
               <h4>Beautified Code</h4>
@@ -73,7 +73,7 @@ export default function App() {
           <div>
             <Grid container spacing={2}>
               <Grid item xs={7} marginTop="20px" marginLeft={5}>
-                <h2> Javascipt Code Formatter</h2>
+                <h2> Javascript Code Formatter</h2>
 
                 <List align="justify">
                   Format your javascript code and make it readable.
@@ -107,7 +107,7 @@ export default function App() {
                     <strong>Label 5: </strong>Remove multiple blank lines
                   </p>
                   <p>
-                    <strong>Label 6: </strong>Remove unnecessary spcaes
+                    <strong>Label 6: </strong>Remove unnecessary spaces
                   </p>
                   <p>
                     <strong>Label 7: </strong>Shifts dot operator from last

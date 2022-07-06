@@ -1,4 +1,4 @@
-import Tokenizr, { Token } from "tokenizr";
+import Tokenizr from "tokenizr";
 
 //Class for implementation of stack
 class Stack {
@@ -21,9 +21,9 @@ class Stack {
   };
   peek = () => {
     if (!this.isEmpty()) {
-      let n = this.item.length
-      return this.item[n - 1]
-      }
+      let n = this.item.length;
+      return this.item[n - 1];
+    }
   };
 }
 
@@ -54,7 +54,6 @@ const Tokenize = (InputString) => {
     ctx.accept("comment");
   });
 
-
   lexer.input(InputString);
   lexer.debug(true);
   let TokensArray = lexer.tokens();
@@ -67,14 +66,14 @@ let stringBulider = (TokensArray) => {
   var result = TokensArray[0].text;
   for (var i = 1; i < TokensArray.length; i++) {
     if (TokensArray[i].line === TokensArray[i - 1].line) {
-      var space =
+      let space =
         TokensArray[i].column -
         TokensArray[i - 1].column -
         TokensArray[i - 1].text.length;
       result += " ".repeat(space);
     } else {
       result += "\n".repeat(TokensArray[i].line - TokensArray[i - 1].line);
-      var space = TokensArray[i].column - 1;
+      let space = TokensArray[i].column - 1;
       result += " ".repeat(space);
     }
     result += TokensArray[i].text;
@@ -132,8 +131,8 @@ let equals = (TokensArray) => {
         TokensArray[i + 2].text !== "="
       ) {
         TokensArray[i + 1].text = "==";
-        var j = i + 2;
-        var currline = TokensArray[i].line;
+        let j = i + 2;
+        let currline = TokensArray[i].line;
         while (TokensArray[j].line === currline) {
           TokensArray[j].column++;
           j++;
@@ -146,17 +145,17 @@ let equals = (TokensArray) => {
 };
 
 let indentation = (TokensArray) => {
-    let BraceStack = new Stack();
-    BraceStack.push(0);
-    for (let i = 0; i < TokensArray.length - 1; i++) {
-        TokensArray[i].column += BraceStack.peek() + 2;
-        if (TokensArray[i].text === '{') {
-            BraceStack.push(TokensArray[i].column);
-        }
-        if (TokensArray[i].text === '}') {
-            BraceStack.pop();
-        }
+  let BraceStack = new Stack();
+  BraceStack.push(0);
+  for (let i = 0; i < TokensArray.length - 1; i++) {
+    TokensArray[i].column += BraceStack.peek() + 2;
+    if (TokensArray[i].text === "{") {
+      BraceStack.push(TokensArray[i].column);
     }
+    if (TokensArray[i].text === "}") {
+      BraceStack.pop();
+    }
+  }
   return TokensArray;
 };
 
@@ -207,15 +206,15 @@ let paddingOperators = (TokensArray) => {
       ) {
         var j = i;
         var currline = TokensArray[i].line;
-          while (TokensArray[j].line === currline) {
-              TokensArray[j].column = TokensArray[j].column + 1;
-              j = j + 1;
+        while (TokensArray[j].line === currline) {
+          TokensArray[j].column = TokensArray[j].column + 1;
+          j = j + 1;
         }
       }
       //don't do anything if padding is already there after operator
       if (TokensArray[i + 1].column === TokensArray[i].column + 1) {
-        var j = i + 1;
-        var currline = TokensArray[i].line;
+        let j = i + 1;
+        let currline = TokensArray[i].line;
         while (TokensArray[j].line === currline) {
           TokensArray[j].column++;
           j++;
@@ -270,7 +269,7 @@ let spacingforSingleLineBrackets = (TokensArray) => {
       TokensArray[i].column <
         TokensArray[i - 1].column + TokensArray[i - 1].text.length + 1
     ) {
-      var j = i;
+      let j = i;
       while (TokensArray[j].line === TokensArray[i - 1].line) {
         TokensArray[j].column = TokensArray[j].column + 1;
         j = j + 1;
@@ -286,7 +285,7 @@ let dotLocation = (TokensArray) => {
       TokensArray[i].text === "." &&
       TokensArray[i].line < TokensArray[i + 1].line
     ) {
-      TokensArray[i].line = TokensArray[i+1].line;
+      TokensArray[i].line = TokensArray[i + 1].line;
       TokensArray[i].column = 1;
       var j = i + 1;
       while (TokensArray[j].line === TokensArray[i].line) {
@@ -315,7 +314,6 @@ const Beautifier = (input, options) => {
   var TokensArray = [];
   var res = "";
   TokensArray = Tokenize(input);
-
 
   try {
     if (options.quotes) {
@@ -350,7 +348,7 @@ const Beautifier = (input, options) => {
   }
   try {
     if (options.indentation) {
-        TokensArray = indentation(TokensArray)
+      TokensArray = indentation(TokensArray);
     }
   } catch (error) {
     console.log(error);
@@ -380,7 +378,7 @@ const Beautifier = (input, options) => {
   }
   try {
     if (options.dot) {
-        TokensArray = dotLocation(TokensArray);
+      TokensArray = dotLocation(TokensArray);
     }
   } catch (error) {
     console.log(error);

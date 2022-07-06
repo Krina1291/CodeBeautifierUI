@@ -1,9 +1,5 @@
 const Options = [
   {
-    name: "indentation",
-    desc: "Indent using 2 spaces",
-  },
-  {
     name: "quotes",
     desc: "Always use single quotes for strings",
   },
@@ -38,6 +34,10 @@ const Options = [
   {
     name: "sinleLineBraces",
     desc: "Space inside single line braces",
+  },
+  {
+    name: "indentation",
+    desc: "Indent using 2 spaces",
   },
 ];
 
